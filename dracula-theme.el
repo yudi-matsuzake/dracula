@@ -80,9 +80,9 @@ read it before opening a new issue about your will.")
 
 ;; Assigment form: VARIABLE COLOR [256-COLOR [TTY-COLOR]]
 (let ((colors '(;; Upstream theme color
-                (dracula-bg      "#282a36" "unspecified-bg" "unspecified-bg") ; official background
-                (dracula-fg      "#f8f8f2" "#ffffff" "brightwhite") ; official foreground
-                (dracula-current "#44475a" "#303030" "brightblack") ; official current-line/selection
+                (dracula-bg      "#000000" "unspecified-bg" "unspecified-bg") ; official background
+                (dracula-fg      "#d8d8b6" "#ffffff" "brightwhite") ; official foreground
+                (dracula-current "#1d1e26" "#303030" "brightblack") ; official current-line/selection
                 (dracula-comment "#6272a4" "#5f5faf" "blue")        ; official comment
                 (dracula-cyan    "#8be9fd" "#87d7ff" "brightcyan")  ; official cyan
                 (dracula-green   "#50fa7b" "#5fff87" "green")       ; official green
