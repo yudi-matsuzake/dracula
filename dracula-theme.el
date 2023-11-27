@@ -250,6 +250,12 @@ read it before opening a new issue about your will.")
                (ediff-fine-diff-B :background ,dracula-green :foreground ,dracula-bg)
                (ediff-current-diff-C :background ,dark-blue)
                (ediff-fine-diff-C :background ,dracula-cyan :foreground ,dracula-bg)
+               (ediff-even-diff-A :background ,bg2)
+               (ediff-odd-diff-A :background ,bg3)
+               (ediff-even-diff-B :background ,bg3)
+               (ediff-odd-diff-B :background ,bg2)
+               ;; (ediff-even-diff-C
+               ;; (ediff-odd-diff-C
                ;; eglot
                (eglot-diagnostic-tag-unnecessary-face :inherit warning)
                (eglot-diagnostic-tag-deprecated-face :inherit warning :strike-through t)
