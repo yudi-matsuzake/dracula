@@ -1,4 +1,4 @@
-;;; dracula-theme.el --- Dracula Theme
+;;; dracula-theme.el --- Dracula Theme -*- lexical-binding: t; -*-
 
 ;; Copyright 2015-present, All rights reserved
 ;;
@@ -6,7 +6,7 @@
 
 ;; Maintainer: Étienne Deparis <etienne@depar.is>
 ;; Author: film42
-;; Version: 1.7.0
+;; Version: 1.8.2
 ;; Package-Requires: ((emacs "24.3"))
 ;; URL: https://github.com/dracula/emacs
 
@@ -15,6 +15,99 @@
 ;; A dark color theme available for a number of editors.
 ;; This theme tries as much as possible to follow the consensual
 ;; specification (see URL `https://spec.draculatheme.com/').
+
+;;; News:
+
+;;;; Version 1.8.3
+
+;; Add missing comma in front of lsp-ui-sideline-current-symbol color
+;; Change default region face
+;; Improve tab-line-* faces
+;; Improve auctex (LaTeX) faces
+
+;;;; Version 1.8.2
+
+;; Fix ansi-color definition
+;; Support solaire-mode
+
+;;;; Version 1.8.1
+
+;; Fix missing 1.8.0 docstring...
+
+;;;; Version 1.8.0
+
+;; New package support:
+;;
+;; - Add support for ansi-color-names-vector
+;; - Add support for bookmark-face
+;; - Add support for (e)diff-mode. Add dark-red and dark-green new colors
+;; - Add support for eldoc-box
+;; - Add support for elfeed
+;; - Add support for gemini-mode and elpher
+;; - Add support for go-test
+;; - Add support for header-line
+;; - Add support for ivy
+;; - Add support for lsp-ui
+;; - Add support for neotree
+;; - Add support for perspective and mini-modeline
+;; - Add support for reStructuredText
+;; - Add support for selectrum-mode
+;; - Add support for shadow-face
+;; - Add support for speedbar
+;; - Add support for telephone-line
+;; - Add support for tooltip-face
+;; - Add support for tree-sitter and add missing font-lock faces
+;; - Add support for web-mode-css-property-name-face
+;; - Add support for which-key-mode
+;;
+;; - Fix ‘message-cited-text-*’ colors
+;; - Use same color for gnus than message mode and old mu4e-view mode
+;; - Follow dracula color specs for Markdown and Org mode
+;; - Improve readability of company colors
+;; - Improve default mode-line colors
+;; - Set powerline active and inactive dracula colors
+;; - Improve completions (from minibuffer.el) colors
+;;
+;; Terminal related things:
+;;
+;; - Try a new 256 colors palette
+;; - Add a setting to force 24bit colors on 256 colors terms
+;; - Do not advertize dracula-use-24-bit-colors-on-256-colors-terms in README
+;; - Avoid black and black text for TUI applications
+;; - Use a dark menubar on terminals
+;;
+;; Tests related things:
+;;
+;; - Improve a little test script
+;; - Avoid auto-save-default folder creation in test profile
+;; - Remove test profile from melpa package content
+;;
+;; README related things:
+;;
+;; - Remove outdated homebrew instructions
+;; - Update screenshot
+;; - Update install instruction to advertize NonGNU Elpa
+;; - Update README configure section with correct names.
+;; - 📃 Standardize docs with other dracula repositories
+;;
+;; Others:
+;;
+;; - Fix comment before color listing
+;; - Use unspecified-bg/-fg instead of nil color spec
+;; - Use inherit highlight for two matching company faces
+;; - Remove useless , in front of inherited faces
+;; - Remove cl-lib dependency
+;; - Reduce eval call scope
+;; - Little change to file metadata
+;; - Remove some unspecified color specifications
+;; - Alphabetically sort basic faces settings
+;; - Move mode-line faces in basic faces section
+;; - Little adjustments for eglot package
+;; - Remove bg3 as it was very similar to dracula-current
+;; - Rename other-blue to dark-blue
+;; - Colorize shr title as in the other markup modes
+;; - Improve magit faces
+;;
 
 ;;; Code:
 (deftheme dracula)
@@ -34,7 +127,7 @@ The theme has to be reloaded after changing anything in this group."
   :group 'dracula)
 
 (defcustom dracula-height-title-1 1.3
-  "Font size 100%."
+  "Font size 130%."
   :type 'number
   :group 'dracula)
 
@@ -44,7 +137,7 @@ The theme has to be reloaded after changing anything in this group."
   :group 'dracula)
 
 (defcustom dracula-height-title-3 1.0
-  "Font size 130%."
+  "Font size 100%."
   :type 'number
   :group 'dracula)
 
@@ -69,7 +162,7 @@ following lines in their config file after having load the
 Dracula theme:
 
     (unless (display-graphic-p)
-      (set-face-background 'default \"black\" nil))
+      (set-face-background \\='default \"black\" nil))
 
 There is a lot of discussion behind the 256 colors theme (see URL
 `https://github.com/dracula/emacs/pull/57').  Please take time to
@@ -109,7 +202,7 @@ read it before opening a new issue about your will.")
                (fringe :background ,dracula-bg :foreground ,fg4)
                (header-line :inherit 'mode-line)
                (highlight :foreground ,fg3 :background ,dracula-current)
-               (hl-line :background ,dracula-current :extend t)
+               (hl-line :background ,bg2 :extend t)
                (info-quoted-name :foreground ,dracula-orange)
                (info-string :foreground ,dracula-yellow)
                (lazy-highlight :foreground ,fg2 :background ,bg2)
@@ -136,7 +229,7 @@ read it before opening a new issue about your will.")
                       (list :foreground dracula-comment :box dracula-bg)
                     (list :foreground fg4 :box bg2)))
                (read-multiple-choice-face :inherit completions-first-difference)
-               (region :inherit match :extend t)
+               (region :background ,dracula-current :extend nil)
                (shadow :foreground ,dracula-comment)
                (success :foreground ,dracula-green)
                (tooltip :foreground ,dracula-fg :background ,dracula-current)
@@ -164,6 +257,35 @@ read it before opening a new issue about your will.")
                (font-lock-warning-face :inherit warning :background ,bg2)
                ;; auto-complete
                (ac-completion-face :underline t :foreground ,dracula-pink)
+               ;; ansi-color
+               (ansi-color-black :foreground ,dracula-bg :background ,dracula-bg)
+               (ansi-color-bright-black :foreground "black" :background "black")
+               (ansi-color-blue :foreground ,dracula-purple :background ,dracula-purple)
+               (ansi-color-bright-blue :foreground ,dracula-purple
+                                       :background ,dracula-purple
+                                       :weight bold)
+               (ansi-color-cyan :foreground ,dracula-cyan :background ,dracula-cyan)
+               (ansi-color-bright-cyan :foreground ,dracula-cyan
+                                       :background ,dracula-cyan
+                                       :weight bold)
+               (ansi-color-green :foreground ,dracula-green :background ,dracula-green)
+               (ansi-color-bright-green :foreground ,dracula-green
+                                        :background ,dracula-green
+                                        :weight bold)
+               (ansi-color-magenta :foreground ,dracula-pink :background ,dracula-pink)
+               (ansi-color-bright-magenta :foreground ,dracula-pink
+                                          :background ,dracula-pink
+                                          :weight bold)
+               (ansi-color-red :foreground ,dracula-red :background ,dracula-red)
+               (ansi-color-bright-red :foreground ,dracula-red
+                                      :background ,dracula-red
+                                      :weight bold)
+               (ansi-color-white :foreground ,dracula-fg :background ,dracula-fg)
+               (ansi-color-bright-white :foreground "white" :background "white")
+               (ansi-color-yellow :foreground ,dracula-yellow :background ,dracula-yellow)
+               (ansi-color-bright-yellow :foreground ,dracula-yellow
+                                         :background ,dracula-yellow
+                                         :weight bold)
                ;; bookmarks
                (bookmark-face :foreground ,dracula-pink)
                ;; company
@@ -296,12 +418,31 @@ read it before opening a new issue about your will.")
                ;; flyspell
                (flyspell-duplicate :underline (:style wave :color ,dracula-orange))
                (flyspell-incorrect :underline (:style wave :color ,dracula-red))
-               ;; font-latex
+               ;; font-latex (auctex)
                (font-latex-bold-face :foreground ,dracula-purple)
                (font-latex-italic-face :foreground ,dracula-pink :slant italic)
                (font-latex-match-reference-keywords :foreground ,dracula-cyan)
                (font-latex-match-variable-keywords :foreground ,dracula-fg)
+               (font-latex-math-face :foreground ,dracula-orange)
+               (font-latex-script-char-face :inherit font-latex-math-face)
+               (font-latex-sectioning-0-face :foreground ,dracula-pink :weight bold
+                                             ,@(when dracula-enlarge-headings
+                                                 (list :height dracula-height-title-1)))
+               (font-latex-sectioning-1-face :foreground ,dracula-purple :weight bold
+                                             ,@(when dracula-enlarge-headings
+                                                 (list :height dracula-height-title-1)))
+               (font-latex-sectioning-2-face :foreground ,dracula-green :weight bold
+                                             ,@(when dracula-enlarge-headings
+                                                 (list :height dracula-height-title-2)))
+               (font-latex-sectioning-3-face :foreground ,dracula-yellow :weight bold
+                                             ,@(when dracula-enlarge-headings
+                                                 (list :height dracula-height-title-3)))
+               (font-latex-sectioning-4-face :foreground ,dracula-cyan :weight bold)
+               (font-latex-sectioning-5-face :foreground ,dracula-orange :weight bold)
+               (font-latex-sedate-face :foreground ,dracula-pink)
                (font-latex-string-face :foreground ,dracula-yellow)
+               (font-latex-verbatim-face :foreground ,dracula-orange)
+               (font-latex-warning-face :foreground ,dracula-red)
                ;; gemini
                (gemini-heading-face-1 :inherit bold :foreground ,dracula-pink
                                       ,@(when dracula-enlarge-headings
@@ -502,7 +643,7 @@ read it before opening a new issue about your will.")
                (lsp-ui-peek-selection :inherit match)
                (lsp-ui-sideline-symbol :foreground ,fg4 :box (:line-width -1 :color ,fg4) :height 0.99)
                (lsp-ui-sideline-current-symbol :foreground ,dracula-fg :weight ultra-bold
-                                               :box (:line-width -1 :color dracula-fg) :height 0.99)
+                                               :box (:line-width -1 :color ,dracula-fg) :height 0.99)
                (lsp-ui-sideline-code-action :foreground ,dracula-yellow)
                (lsp-ui-sideline-symbol-info :slant italic :height 0.99)
                (lsp-ui-doc-background :background ,dracula-bg)
@@ -774,6 +915,8 @@ read it before opening a new issue about your will.")
                (shr-h6 :foreground ,dracula-orange)
                ;; slime
                (slime-repl-inputed-output-face :foreground ,dracula-purple)
+               ;; solaire-mode
+               (solaire-default-face :background ,bg2)
                ;; spam
                (spam :inherit gnus-summary-normal-read :foreground ,dracula-orange
                      :strike-through t :slant oblique)
@@ -788,20 +931,29 @@ read it before opening a new issue about your will.")
                                         :foreground ,dracula-fg
                                         :weight bold)
                ;; tab-bar & tab-line (since Emacs 27.1)
-               (tab-bar :foreground ,dracula-purple :background ,dracula-current
-                        :inherit variable-pitch)
+               (tab-bar :inherit variable-pitch
+                        :foreground ,dracula-purple
+                        :background ,dracula-current)
                (tab-bar-tab :foreground ,dracula-pink :background ,dracula-bg
                             :box (:line-width 2 :color ,dracula-bg :style nil))
                (tab-bar-tab-inactive :foreground ,dracula-purple :background ,bg2
                                      :box (:line-width 2 :color ,bg2 :style nil))
-               (tab-line :foreground ,dracula-purple :background ,dracula-current
-                         :height 0.9 :inherit variable-pitch)
-               (tab-line-tab :foreground ,dracula-pink :background ,dracula-bg
-                             :box (:line-width 2 :color ,dracula-bg :style nil))
-               (tab-line-tab-inactive :foreground ,dracula-purple :background ,bg2
-                                      :box (:line-width 2 :color ,bg2 :style nil))
-               (tab-line-tab-current :inherit tab-line-tab)
+               (tab-line :inherit variable-pitch
+                         :foreground ,dracula-purple
+                         :background ,dracula-current
+                         :height 0.92)
                (tab-line-close-highlight :foreground ,dracula-red)
+               (tab-line-highlight :weight bold)
+               (tab-line-tab :foreground ,dracula-purple :background ,bg2
+                             :box (:line-width 4 :color ,bg2 :style nil))
+               (tab-line-tab-current :foreground ,dracula-pink :background ,dracula-bg
+                                     :box (:line-width 4 :color ,dracula-bg :style nil)
+                                     :weight bold)
+               (tab-line-tab-group :background ,dracula-comment)
+               (tab-line-tab-inactive :inherit tab-line-tab)
+               (tab-line-tab-inactive-alternate :background ,bg3)
+               (tab-line-tab-modified :slant italic)
+               (tab-line-tab-special :foreground ,dracula-green)
                ;; telephone-line
                (telephone-line-accent-active :background ,dracula-bg :foreground ,dracula-pink)
                (telephone-line-accent-inactive :background ,bg2 :foreground ,dracula-purple)
@@ -816,6 +968,10 @@ read it before opening a new issue about your will.")
                (term-color-red :foreground ,dracula-red :background ,dracula-red)
                (term-color-white :foreground ,dracula-fg :background ,dracula-fg)
                (term-color-yellow :foreground ,dracula-yellow :background ,dracula-yellow)
+               ;; TeX (auctex)
+               (TeX-error-description-error :inherit error)
+               (TeX-error-description-tex-said :foreground ,dracula-cyan)
+               (TeX-error-description-warning :inherit warning)
                ;; tree-sitter
                (tree-sitter-hl-face:attribute :inherit font-lock-constant-face)
                (tree-sitter-hl-face:comment :inherit font-lock-comment-face)
@@ -906,24 +1062,7 @@ read it before opening a new issue about your will.")
                       (t                       ; should be only tty-like envs
                        ,(funcall expand-with-func 'cadddr spec))))
                    whole-theme))
-           whole-theme))
-
-  (apply #'custom-theme-set-variables
-         'dracula
-         (let ((get-func
-                (pcase (display-color-cells)
-                  ((pred (<= 16777216)) 'car) ; fully graphical envs
-                  ((pred (<= 256)) 'cadr)     ; terminal withs 256 colors
-                  (_ 'caddr))))               ; should be only tty-like envs
-           `((ansi-color-names-vector
-              [,(funcall get-func (alist-get 'dracula-bg colors))
-               ,(funcall get-func (alist-get 'dracula-red colors))
-               ,(funcall get-func (alist-get 'dracula-green colors))
-               ,(funcall get-func (alist-get 'dracula-yellow colors))
-               ,(funcall get-func (alist-get 'dracula-comment colors))
-               ,(funcall get-func (alist-get 'dracula-purple colors))
-               ,(funcall get-func (alist-get 'dracula-cyan colors))
-               ,(funcall get-func (alist-get 'dracula-fg colors))])))))
+           whole-theme)))
 
 
 ;;;###autoload
